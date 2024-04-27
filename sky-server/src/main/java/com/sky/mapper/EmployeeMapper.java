@@ -18,6 +18,6 @@ public interface EmployeeMapper {
 
     @Insert("insert into employee (name,username,password,phone,sex,id_number,creat_time,update_time,create_user,update_time,status)"+
     "value"+
-    "#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{creatTime},#{updateTime},#{createUser},#{updateTime},#{status}")
+    "#{name},#{username},#{password},#{phone},#{sex},#{idNumber},#{createTime},#{updateTime},#{createUser},#{updateTime},#{status}")
     void insert(Employee employee);
 }
