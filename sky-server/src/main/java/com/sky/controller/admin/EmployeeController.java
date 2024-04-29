@@ -99,4 +99,10 @@ public class EmployeeController {
         return Result.success();
     }
 
+    @PostMapping("/{id}")
+    public Result<Employee>  getById(@PathVariable Long id){
+        Employee employee= employeeService.getById(id);
+        return Result.success(employee);
+    }
+
 }
