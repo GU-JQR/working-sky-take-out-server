@@ -99,8 +99,10 @@ public class EmployeeController {
         return Result.success();
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
+    @ApiOperation("根据ID查询员工信息")
     public Result<Employee>  getById(@PathVariable Long id){
+        log.info("查询员工:{}",id);
         Employee employee= employeeService.getById(id);
         return Result.success(employee);
     }
