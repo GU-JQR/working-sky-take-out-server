@@ -2,8 +2,11 @@ package com.sky.config;
 
 import com.sky.interceptor.JwtTokenAdminInterceptor;
 import com.sky.json.JacksonObjectMapper;
+import com.sky.properties.AliOssProperties;
+import com.sky.utils.AliOssUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.MappingAuditableBeanWrapperFactory;
@@ -47,6 +50,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     /**
      * 通过knife4j生成接口文档
+     *
      * @return
      */
     @Bean
@@ -67,6 +71,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     /**
      * 设置静态资源映射
+     *
      * @param registry
      */
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -74,20 +79,35 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-//    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters){
+    //    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters){
 //        log.info("扩展消息转换器");
 //        MappingJackson2CborHttpMessageConverter converter = new MappingJackson2CborHttpMessageConverter();
 //        converter.setObjectMapper(new JacksonObjectMapper());
 //        converters.add(0,converter);
 //
 //    }
-protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-    log.info("扩展消息转换器...");
-    //创建一个消息转换器对象
-    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-    //需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据
-    converter.setObjectMapper(new JacksonObjectMapper());
-    //将自己的消息转化器加入容器中
-    converters.add(0,converter);
-}
+    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+        log.info("扩展消息转换器...");
+        //创建一个消息转换器对象
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        //需要为消息转换器设置一个对象转换器，对象转换器可以将Java对象序列化为json数据
+        converter.setObjectMapper(new JacksonObjectMapper());
+        //将自己的消息转化器加入容器中
+        converters.add(0, converter);
+    }
+
+    @Configuration
+    @Slf4j
+    public class OssConfiguration {
+
+        @Bean
+        @ConditionalOnMissingBean
+        public AliOssUtil aliOssUtil(AliOssProperties aliOssProperties) {
+            log.info("开始创建阿里云文件上传工具类对象：{}", aliOssProperties);
+            return new AliOssUtil(aliOssProperties.getEndpoint(),
+                    aliOssProperties.getAccessKeyId(),
+                    aliOssProperties.getAccessKeySecret(),
+                    aliOssProperties.getBucketName());
+        }
+    }
 }
