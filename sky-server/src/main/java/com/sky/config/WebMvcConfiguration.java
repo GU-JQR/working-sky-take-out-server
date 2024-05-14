@@ -96,18 +96,5 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         converters.add(0, converter);
     }
 
-    @Configuration
-    @Slf4j
-    public class OssConfiguration {
 
-        @Bean
-        @ConditionalOnMissingBean
-        public AliOssUtil aliOssUtil(AliOssProperties aliOssProperties) {
-            log.info("开始创建阿里云文件上传工具类对象：{}", aliOssProperties);
-            return new AliOssUtil(aliOssProperties.getEndpoint(),
-                    aliOssProperties.getAccessKeyId(),
-                    aliOssProperties.getAccessKeySecret(),
-                    aliOssProperties.getBucketName());
-        }
-    }
 }
