@@ -56,7 +56,7 @@ public class DishController {
         return Result.success(dishvo);
     }
 
-    @PostMapping
+    @PutMapping
     @ApiOperation("修改菜品")
     public Result update(@RequestBody DishDTO dishDTO) {
         log.info("删除菜品:{}", dishDTO);
