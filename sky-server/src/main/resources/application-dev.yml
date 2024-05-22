@@ -12,3 +12,9 @@ sky:
     access-key-id: LTAI5tEZQQGhiCyAgBGKB8C2
     access-key-secret: y4XDvrnfQfQUcIAPWU1H7qy4FUGWmN
     bucket-name: web-tlias-guclassmate
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 10
