@@ -86,6 +86,22 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     * 启用或停用菜品
+     *
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    public Result<String> startOrStop(@PathVariable Integer status, Long id) {
+        // 1. 启用 0. 停用
+        log.info("启用或停用菜品：{}", id);
+        dishService.startOrStop(status, id);
+        cleanCache("dish_*");
+        return Result.success();
+    }
+
     private void cleanCache(String pattern) {
         Set keys = redisTemplate.keys(pattern);
         redisTemplate.delete(keys);
