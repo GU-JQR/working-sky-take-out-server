@@ -80,7 +80,7 @@ public class DishController {
     @PutMapping
     @ApiOperation("修改菜品")
     public Result update(@RequestBody DishDTO dishDTO) {
-        log.info("删除菜品:{}", dishDTO);
+        log.info("修改菜品:{}", dishDTO);
         dishService.updateWithFlavor(dishDTO);
         cleanCache("dish_*");
         return Result.success();
