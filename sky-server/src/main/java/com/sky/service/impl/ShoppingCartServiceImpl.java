@@ -87,8 +87,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             if (shoppingCartGet.getNumber() == 1) {
                 shoppingCartMapper.sub(shoppingCart);
             } else {
-                shoppingCart.setNumber(shoppingCartGet.getNumber() - 1);
-                shoppingCartMapper.updateNumberById(shoppingCart);
+                shoppingCartGet.setNumber(shoppingCartGet.getNumber() - 1);
+                shoppingCartMapper.updateNumberById(shoppingCartGet);
             }
         }
     }
