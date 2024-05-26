@@ -72,4 +72,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         // 调用shoppingCartMapper的list方法获取购物车条目列表并返回
         return shoppingCartMapper.list(shoppingCart);
     }
+
+    @Override
+    public void cleanShoppingCart() {
+        shoppingCartMapper.deleteByUserId(BaseContext.getCurrentId());
+    }
 }
