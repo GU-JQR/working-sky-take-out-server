@@ -79,14 +79,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
         ShoppingCart shoppingCart = new ShoppingCart();
-        BeanUtils.copyProperties(shoppingCart, shoppingCartDTO);
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
         List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+
         if (list != null && list.size() == 1) {
-            shoppingCartMapper.sub(shoppingCart);
-        } else {
             ShoppingCart shoppingCartGet = list.get(0);
-            shoppingCart.setNumber(shoppingCartGet.getNumber() + 1);
-            shoppingCartMapper.updateNumberById(shoppingCart);
+            if (shoppingCartGet.getNumber() == 1) {
+                shoppingCartMapper.sub(shoppingCart);
+            } else {
+                shoppingCart.setNumber(shoppingCartGet.getNumber() - 1);
+                shoppingCartMapper.updateNumberById(shoppingCart);
+            }
         }
     }
 }
