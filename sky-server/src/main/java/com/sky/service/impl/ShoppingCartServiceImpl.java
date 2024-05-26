@@ -61,10 +61,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     public List<ShoppingCart> showShoppingCart() {
+        // 获取当前用户ID
+        Long currentUserId = BaseContext.getCurrentId();
 
-        return shoppingCartMapper.list(ShoppingCart.
-                builder().
-                userId(BaseContext.getCurrentId()).
-                build());
+        // 使用建造者模式构建ShoppingCart对象
+        ShoppingCart shoppingCart = ShoppingCart.builder()
+                .userId(currentUserId)
+                .build();
+
+        // 调用shoppingCartMapper的list方法获取购物车条目列表并返回
+        return shoppingCartMapper.list(shoppingCart);
     }
 }
