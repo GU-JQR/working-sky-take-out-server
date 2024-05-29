@@ -23,4 +23,11 @@ public interface ShoppingCartMapper {
     void deleteByUserId(Long currentId);
 
     void sub(ShoppingCart shoppingCart);
+
+    /**
+     * 批量插入购物车数据
+     *
+     * @param shoppingCartList
+     */
+    void insertBatch(List<ShoppingCart> shoppingCartList);
 }
