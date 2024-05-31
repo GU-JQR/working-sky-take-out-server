@@ -27,6 +27,8 @@ public class ReportController {
     public Result<TurnoverReportVO> turnoverStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
-        return Result.success(reportService.getTurnover(begin, end));
+        log.info("管理数据统计");
+        TurnoverReportVO turnover = reportService.getTurnover(begin, end);
+        return Result.success(turnover);
     }
 }
