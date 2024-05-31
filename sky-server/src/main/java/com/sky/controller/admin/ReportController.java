@@ -33,6 +33,8 @@ public class ReportController {
         return Result.success(turnover);
     }
 
+    @GetMapping("/userStatistics")
+    @ApiOperation("用户数据统计")
     public Result<UserReportVO> userStatistics(
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end

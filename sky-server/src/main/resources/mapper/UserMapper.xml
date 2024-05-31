@@ -10,7 +10,7 @@
     </insert>
     <select id="coutByMap" resultType="java.lang.Integer">
         select count(id)
-        from orders
+        from user
         <where>
             <if test="begin!=null">
                 and create_time &gt;= #{begin}
